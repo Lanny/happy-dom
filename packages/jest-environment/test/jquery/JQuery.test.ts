@@ -14,6 +14,10 @@ describe('JQuery', () => {
                 <b>Bold</b>
                 <!-- Comment 2 !-->
             </article>
+            <label id="checkbox-label">
+              <input type="checkbox" />
+              <span>Label</span>
+            </label>
         `;
 	});
 
@@ -24,5 +28,12 @@ describe('JQuery', () => {
 	it('Tests integration.', () => {
 		JQuery('span').addClass('test-span');
 		expect(document.body.children[0].children[1].getAttribute('class')).toBe('test-span');
+	});
+
+	it('Handles clicks on labels correctly', () => {
+		const onClick = jest.fn();
+		JQuery('#checkbox-label input').on('click', onClick);
+		JQuery('#checkbox-label')[0].click();
+		expect(onClick).toHaveBeenCalledTimes(1);
 	});
 });

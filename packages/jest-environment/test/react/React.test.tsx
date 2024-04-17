@@ -110,4 +110,18 @@ describe('React', () => {
 		await TESTING_LIBRARY_USER.click(button);
 		expect(document.querySelector('p span').textContent).toBe('test');
 	});
+
+	it('handles clicks on labels correctly', async () => {
+		const onClick = jest.fn();
+		const { getByTestId } = ReactTestingLibrary.render(
+			<label data-testid="checkbox-label">
+				<input type="checkbox" onClick={onClick} />
+				<span>Label</span>
+			</label>
+		);
+
+		await TESTING_LIBRARY_USER.click(getByTestId('checkbox-label'));
+
+		expect(onClick).toHaveReturnedTimes(1);
+	});
 });
